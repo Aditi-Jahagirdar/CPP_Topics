@@ -1,20 +1,33 @@
+
+//........................................VARIABLES........................................................................
 //Variable  - is a name given to a piece of data.
 //Local Variable - Scope: within parenthesis, lifetime: within parenthesis
 //Global Variable - Scope:anywhere in program, not part of function or class  , lifetime: program start to program end
 //Static Variable - Outside class - 1.Globally- Scope-within that translation unit , lifetime-program start to program end 
 //                                  2.Inside a function - within braces, lifetime: program start to program end
-//                  Inside class - It is common variable for all objects of class.
-//                                 1.Outside function - Initialize outside class. Scope- within class, lifetime: program start to program end
-//                                 2.Inside function - Initialized within function, not required outside class.Scope- within function,lifetime: program start to program end
+//                  Inside class - It is common variable for all objects of class.It is created at the time of class creation and does not require object creation, so memory has to be allocated separately even before any objects are created.
+//                                 1.Outside function - Initialize outside class for separate memory allocation of static variable which is independent of object creation.
+//                                                      Scope- within class, lifetime: program start to program end
+//                                 2.Inside function - Initialized within function, not required outside class because its Scope- within function (and not for class),lifetime: program start to program end
 //                                   Static variable can directly be accessed by  "class name :: "
 //Member Variables/Attributes - are the variables defined inside a class.
 //Constant variables - whose value cannot be changed
+//                  - const variables inside class :
+//Variable declaration and definition both are same eg. int x. 
+//"Extern" keyword is used for pure declaration of variables.
+//One definition rule - a class can be defined only once in one translation unit. A variable or function can be define only once throughout the program.
+//                    - Header guard are used to avoid copies of header files and maintain 1-definition rule.
+//"auto" keyword automatically deduces type of variable based on assigned value.
+
+
+
 
 #include <iostream>
-#include "variables.h"
+#include "variables.h"        //int x=10 , y=20;   //x,y are global variables
 using namespace std;
 
 static int s =10;
+extern int x;  //pure declaration of x which will be declared and defined already in other file.
 
 int add (int& a , int& b)
 {
@@ -34,6 +47,7 @@ class Test
         static int grade;
         char section = 'A';
         int numOfStudents = 40 ;
+        const int points = 100;
     public:
         void setGrade (int x)
         {
@@ -42,7 +56,7 @@ class Test
 
         void getGrade()
         {
-            cout<<grade<<endl;
+            cout<<"grade:"<<grade<<"points:"<<points <<endl;
         }
 
         void printRollNo()
@@ -77,6 +91,10 @@ int main()
     obj.printRollNo();
     obj.setGrade(20);
     cout<<Test::grade<<endl;  //accessing static variable directly
+
+     //auto varAuto = 2.5f;
+     auto varAuto = 2.5;
+     cout<<typeid(varAuto).name()<<endl;
 
     return 0;
 }
