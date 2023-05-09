@@ -16,7 +16,7 @@
 //Variable declaration and definition both are same eg. int x. 
 //"Extern" keyword is used for pure declaration of variables.
 //One definition rule - a class can be defined only once in one translation unit. A variable or function can be define only once throughout the program.
-//                    - Header guard are used to avoid copies of header files and maintain 1-definition rule.
+//                    - Header guard are used to avoid copies of header files and maintain 1-definition rule. #pragma once - at beginning of header file OR #ifndef "variables.h" #define "variables.h"  at beginning of header file and #endif at the end of header file
 //"auto" keyword automatically deduces type of variable based on assigned value.
 
 
@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include "variables.h"        //int x=10 , y=20;   //x,y are global variables
+#include "var.h"
 using namespace std;
 
 static int s =10;
