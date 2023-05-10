@@ -1,4 +1,4 @@
-//............................................FUNCTIONS.......................................................................
+//............................................FUNCTIONS.............................................................................................................
 
 //MAIN function - special function that returns 0 when program ended successfully.
 //              -It is good practice to write return 0 explicitly.
@@ -17,13 +17,20 @@
 //Return by value - Copy of returned value is stored in a variable.
 //Return by reference- returns a reference to function output variable. Hence, returned variable should be global/static/created on heap .
 //                  -because variables in function scope will be destroyed after function is executed and its reference value cannot be
-
-
+//Return by pointer- returns a pointer. Another pointer is created to hold the returned pointer.By dereferencing this new pointer, we access the value of function output.
+//                 -Since pointer is to be returned, only address of heap allocated, static or global variable is processed in function.As local variable's scope ends with function execution.
+//INLINE function - for smaller functions where execution time is lesser than overhead, compiler is requested to make inline function. 
+//                - Code of inline function gets inserted/copied at place of function call.
+//                - For complex functions (loops,static variables,recursive,switch,return type except void), compiler may reject the inline request.
+//                - Inside class, functions are implicitly inline.Good practice-declare without inline keyword inside class. Define with inline outside class.
 
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 static int sNum = 2;
+
+
 class Func
 {
     private:
@@ -55,10 +62,12 @@ int Func::y=5;
 int add(int a, int b);   //function declaration
 int& subtract(int& a, int& b);
 void square(int* k);
+int* incrementNum();
+void printVect(vector<int>& v);
 
 static void mult(int a, int b); //static function outside class
 int result; //global variable for return by reference
-
+inline void getName(){cout<<"aditi"<<endl;}   //inline function
 int main()
 {
     /* static variable in non-static function
@@ -86,15 +95,28 @@ int main()
     obj.setY();    //6
     */
 
- 
+   /*
     int x=5, y=2;
     int& subt = subtract(x,y);   
     cout<<subt<<endl;  //3
-   
+   */
    /*
    int number = 3;
    square(&number);
     */
+
+   /*
+   int* retptr = incrementNum();
+   cout<<*retptr<<endl; //501
+    */ 
+
+   //getName();  //code of this function gets inserted here 
+
+    std::vector<int> myvector = {10,20,30};
+    myvector.push_back(10);
+
+   printVect(myvector);
+
     return 0;
 }
 
@@ -121,3 +143,17 @@ void square(int* k) //pass by pointer
     res = (*k)*(*k);
     cout<<res<<endl;
 }
+
+int* incrementNum()
+{
+    int* p =  new int (500);
+    (*p)++;
+    return p;
+}
+
+void printVect(vector<int>& v)
+{
+    for_each(v.begin(), v.end(), [](int i){cout<<i<<" ";});
+    cout<<endl;
+}
+
