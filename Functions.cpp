@@ -23,10 +23,19 @@
 //                - Code of inline function gets inserted/copied at place of function call.
 //                - For complex functions (loops,static variables,recursive,switch,return type except void), compiler may reject the inline request.
 //                - Inside class, functions are implicitly inline.Good practice-declare without inline keyword inside class. Define with inline outside class.
+//LAMBDA function - anonymous function for 1-time use. It is used whe function pointers are used to pass function in the argument.
+//                 - declaration can have function pointer or const::function<void(int)> funcName (part of <functional> class ) and function call contains lambda function as argument.
+//CALLABLES - is an entity which can be called/invoked as a function i.e it can take argument and return a value.
+//          - It is used when functions are to be passed as argument in other function or stored in data structure.
+//          - Examples- Lambda function, Function pointers , Functors,Function objects
+//FUNCTOR - in a class or struct is a method that overloads function call () operator such that object of that class in invoked as a function.
+
 
 #include <iostream>
 #include <string>
 #include <vector>
+#include <functional>
+
 using namespace std;
 static int sNum = 2;
 
@@ -56,6 +65,11 @@ class Func
             return name;
         }
 
+        int operator() ()const
+        {
+            return x;
+        }
+
 };
 int Func::y=5;
 
@@ -63,11 +77,12 @@ int add(int a, int b);   //function declaration
 int& subtract(int& a, int& b);
 void square(int* k);
 int* incrementNum();
-void printVect(vector<int>& v);
 
 static void mult(int a, int b); //static function outside class
 int result; //global variable for return by reference
 inline void getName(){cout<<"aditi"<<endl;}   //inline function
+void forEach (std::vector<int> v, const std::function<void(int)>& myfunc);
+
 int main()
 {
     /* static variable in non-static function
@@ -112,10 +127,26 @@ int main()
 
    //getName();  //code of this function gets inserted here 
 
+    //std::vector<int> myvector = {10,20,30};
+    //myvector.push_back(10);
+    /*
     std::vector<int> myvector = {10,20,30};
-    myvector.push_back(10);
+    for(int i=0; i<myvector.size();i++)
+    {
+        cout<<myvector[i]<<" , ";
+    }
+    std::cout<<std::endl;
+    */
+    // for (auto x:myvector )
+    // {
+    //     cout<<x<<" , ";
+    // }
+    //forEach(myvector, [](int val){cout<<val<<" , ";}); //lambda expression
 
-   printVect(myvector);
+    Func obj;
+    obj.setX(4); //4
+
+    cout<<obj()<<endl; //4
 
     return 0;
 }
@@ -151,9 +182,12 @@ int* incrementNum()
     return p;
 }
 
-void printVect(vector<int>& v)
+void forEach (std::vector<int> v, const std::function<void(int)>& myfunc)
 {
-    for_each(v.begin(), v.end(), [](int i){cout<<i<<" ";});
-    cout<<endl;
+    for (auto x: v)
+    {
+        //myfunc(x);
+        std::cout<<x<<"  ";
+    }
 }
 
