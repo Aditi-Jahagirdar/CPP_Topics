@@ -119,7 +119,9 @@ int main()
             std::shared_ptr<Entity> p5 = p2; 
         }
     }
+    std::cout<<pw.use_count()<<std::endl; //1 shared pointer is alive
    }
+   std::cout<<pw.use_count()<<std::endl; //0 shared pointer is destroyed
    }
 
 
