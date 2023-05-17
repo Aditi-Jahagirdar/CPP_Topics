@@ -15,9 +15,9 @@
 //                    - also used in map STL to access its key and value using iterator(pointer) traversing through map eg. iteratorName->first , iteratorName->second .
 //SMART Pointer - used for automatic memory management to avoid memory leaks. Include <memory> class.
 //UNIQUE Pointer - based on RAII principle. Memory is freed when scope is complete. It cannot be copied, Copy constructor is deleted.
-//SHARED Pointer - based on Resource counter. When pointer is copied , resource count is incremented by one and with scope end of each pointer it is decremented by one.
-//               - Memory is freed when resource count is 0 i.e. all pointer's scope is completed.
-//WEAK Pointer - is to track if shared pointer is alive or destroyed. It is created by assigning shared pointer but resource count is not incremented.
+//SHARED Pointer - based on Reference count. When pointer is copied , reference count is incremented by one and with scope end of each pointer it is decremented by one.
+//               - Memory is freed when reference count is 0 i.e. all pointer's scope is completed.
+//WEAK Pointer - is to track if shared pointer is alive or destroyed. It is created by assigning shared pointer but reference count is not incremented.
 
 #include <iostream>
 #include <memory>
@@ -85,18 +85,43 @@ cout<<res<<endl;
 
 class Entity
 {
-
-
+    int m_x = 5;
+    public:
+    Entity(){std::cout<<"Entity created"<<std::endl;}
+    ~Entity(){std::cout<<"Entity destroyed"<<std::endl;}
+    void printX()
+    {
+        std::cout<<m_x<<std::endl;
+    }
 };
 
 int main()
 {
+    /*
     {
-        std::unique_ptr<Entity> p1 = std::make_unique <Entity> ();
+        std::unique_ptr<Entity> p1 (new(Entity));
+        //std::unique_ptr<Entity> p1 = std::make_unique <Entity>(); //make_unique in C++14
+        p1->printX();
     }
-    
+    */
 
-    
+   {
+    std::weak_ptr<Entity> pw;
+   {
+    std::shared_ptr<Entity> p2 = std::make_shared<Entity>();
+    pw = p2;
+    {
+       std::shared_ptr<Entity> p3 = p2; 
+    }
+    {
+        std::shared_ptr<Entity> p4 = p2; 
+        {
+            std::shared_ptr<Entity> p5 = p2; 
+        }
+    }
+   }
+   }
+
 
     return 0;
 }
