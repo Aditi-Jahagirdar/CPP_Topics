@@ -3,6 +3,7 @@
 //Reference variable is alias or nickname of existing variable.It has to be initiatized at the time of creation & reference cannot be changed.
 //Pointer - is a address variable , it stores address of other variable.By dereferencing(*) the pointer , we get the value at that memory address.
 //        - pointer can change what it points to.
+//        - On most 32-bit systems, the size of a pointer is typically 4 bytes, while on most 64-bit systems, the size of a pointer is 8 bytes.
 //Constant Pointers - 1. const after star* :  cannot change what it points to
 //                    2.const before star* : of read-only type, it cannot be assigned value directly.
 //                    3.const after and before star* : it can change what it points to, nor cannot be assigned a value.
@@ -12,6 +13,7 @@
 //Invalid pointer - when pointer is uninitialized or stores invalid address.Dereferencing causes runtime error or accessing random values.
 //VOID pointer - points to address that does not holds value of specific data type. Its cannot be accessed(dereferenced) directly.
 //             -It has to be casted to specific type during derencing to access its value.
+//             -It cannot be directly dereferenced since it is generic type. First, cast void pointer to pointer of assigned data type.Then dereference this pointer.
 //FUNCTION pointer- for passing function as an argument in another function. void func2 (int x, int y, (*func1)(arg1,arg2)) and to access , directly use func2(2,3,func1)
 //                 -here func1 is function pointer with 2 parameters arg1 and arg2
 
