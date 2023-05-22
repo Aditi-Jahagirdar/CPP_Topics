@@ -26,14 +26,16 @@ int main()
     // char str1[] = "hello1";
     // std::cout<<str1<<std::endl;  //hello1
 
-    //const char* str2 = "hello2";
-    //std::cout<<*str2<<std::endl;  //h
-    //std::puts(str2);
+    // const char* str2 = "hello2";
+    //std::cout<<str2<<std::endl;  //hello2
+
+    // std::cout<<*str2<<std::endl;  //h
+    //std::puts(str2); //hello2
 
     // for (int i=0 ; str2[i] != '\0' ;i++)
     // {
-    //     std::cout<<str2[i]; 
-    // }
+    //     std::cout<<str2[i];   
+    // }                        //hello2
     // std::cout<<std::endl;
 
     // string str3 = "hello3";
@@ -66,11 +68,18 @@ int main()
     // level cvar = level::low;
 
     //To specificy size of enum object;
-    enum class level : char{ low =1, medium, high};
-    level svar = level::medium ;  // svar will be of 1 byte
-        
+    // enum class level : char{ low =1, medium, high};
+    // level svar = level::medium ;  // svar will be of 1 byte
 
-    
+    char* name1 = new char[100];  
+    char* name2 = new char[100]; 
+
+   // std::cin.get(name1, 100, '\n');  //defining delimiter character as size of array or newline which ever come fist .
+   // By default cin has space ' ' and '\n' as delimiter character. i.e. it processes input until these characters.
+
+     std::cin>>name1>>name2;
+   
+    std::cout<<name1<<name2<<std::endl;
 
 
     return 0;
